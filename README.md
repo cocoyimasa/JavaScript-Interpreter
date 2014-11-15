@@ -1,10 +1,11 @@
-JSInterpret
+JSInterpreter
 ===========
 
 My JavaScript Interpreter is write all by hand.
 Surely I read some sources that written by others.
 I have learned many ideas and used them in my code.
-It is not completed.Many Bugs 
+It is not completed.Many Bugs still can be found in this program.
+
 Now it support only the core features in JavaScript.
 The features it supports as fellows:
 
