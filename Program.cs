@@ -1152,18 +1152,6 @@ namespace JSInterpret
                     }
                     return result;
                 })
-                //.Builtin("car", (args, scope) =>
-                //{
-                //    LList list = null;
-                //    (args.Length == 1 && (list = args[0].evaluate(scope) as LList) != null).OrThrows("只能对列表操作");
-                //    return list.First();
-                //})
-                //.Builtin("cdr", (args, scope) =>
-                //{
-                //    LList list = null;
-                //    (args.Length == 1 && (list = args[0].evaluate(scope) as LList) != null).OrThrows("只能对列表操作");
-                //    return new LList(list.Skip(1));
-                //})
                 .Builtin("==", (args, scope) =>
                 {
                     return args.BoolEval(scope, (s1, s2) => s1 == s2);
