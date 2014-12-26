@@ -6,7 +6,7 @@ Surely I read some sources that written by others.
 I have learned many ideas and used them in my code.
 It is not completed.Many Bugs still can be found in this program.
 
-Now it support only the core features in JavaScript.
+Now it supports only the core features in JavaScript.
 The features it supports as fellows:
 
 1. Basic Arithmetic
@@ -14,10 +14,10 @@ The features it supports as fellows:
 3. var declaration and assignment;if else;return;while;
 4. Annoymous function.
 5. Bool expression
-In the future,it will support some library functions and array. 
+In the future,it will support some library functions and arrays. 
 
 Usage:
-When you input a statement,add two commas(;;) ahter that.
+When you input a statement,please add two commas(;;) after that.
 
 For example: var v=100; ;; <-- The first ; is the mark that indicates you statement finished, 
 and the last two ones tell the inetrpret to run. 
