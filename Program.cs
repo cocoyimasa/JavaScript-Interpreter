@@ -1053,16 +1053,15 @@ namespace JSInterpret
                     StringBuilder sb = new StringBuilder();
                     string input = Console.ReadLine();
                     //if string are not ';;',then continue reading
-                    while (!input.Equals(";;"))
+                    while (true)
                     {
-                        if (input.Substring(input.Length - 2, 2).Equals(";;"))
+                        sb.Append(input);
+                        ConsoleKeyInfo info = Console.ReadKey();
+                        if(info.KeyChar=='\r')
                         {
-                            sb.Append(input.Substring(0, input.Length - 2));
                             break;
                         }
-                        sb.Append(input.Substring(0, input.Length - 2));
-                        Console.ReadKey();
-                        input = Console.ReadLine();
+                        input = info.KeyChar + Console.ReadLine();
                     }
                     input = sb.ToString();
                     if (input == "!q")

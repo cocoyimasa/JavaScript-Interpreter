@@ -1,0 +1,12 @@
+E:\Program Files\Project\JSInterpret\JSInterpret\bin\Debug\JSInterpret.exe.config
+E:\Program Files\Project\JSInterpret\JSInterpret\bin\Debug\JSInterpret.exe
+E:\Program Files\Project\JSInterpret\JSInterpret\bin\Debug\JSInterpret.pdb
+E:\Program Files\Project\JSInterpret\JSInterpret\obj\Debug\JSInterpret.csprojResolveAssemblyReference.cache
+E:\Program Files\Project\JSInterpret\JSInterpret\obj\Debug\JSInterpret.exe
+E:\Program Files\Project\JSInterpret\JSInterpret\obj\Debug\JSInterpret.pdb
+D:\Program Files\Project\JSInterpret\JSInterpret\bin\Debug\JSInterpret.exe.config
+D:\Program Files\Project\JSInterpret\JSInterpret\obj\Debug\JSInterpret.exe
+D:\Program Files\Project\JSInterpret\JSInterpret\obj\Debug\JSInterpret.pdb
+D:\Program Files\Project\JSInterpret\JSInterpret\bin\Debug\JSInterpret.exe
+D:\Program Files\Project\JSInterpret\JSInterpret\bin\Debug\JSInterpret.pdb
+D:\Program Files\Project\JSInterpret\JSInterpret\obj\Debug\JSInterpret.csprojResolveAssemblyReference.cache
