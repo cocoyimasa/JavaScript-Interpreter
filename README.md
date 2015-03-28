@@ -17,30 +17,27 @@ The features it supports as fellows:
 In the future,it will support some library functions and arrays. 
 
 Usage:
-When you input a statement,please add two commas(;;) after that.
-
-For example: var v=100; ;; <-- The first ; is the mark that indicates you statement finished, 
-and the last two ones tell the inetrpret to run. 
+When you input a statement,please press more Enter-Key after that.
 
 Some cases for you to test my interpreter:
 
-function add(a){a=a+1;return a;};;
+function add(a){a=a+1;return a;}
 
-var testB=function(){return 10;};;;
+var testB=function(){return 10;};
 
-var b=1;;;
+var b=1;
 
-var c=b;;;
+var c=b;
 
-var c=add(1);;;
+var c=add(1);
 
-var obj=new Object();;;
+var obj=new Object();
 
-b;;;
+b;
 
-1;;;
+1;
 
-1+2;;;
+1+2;
 
-100+100;;;
+100+100;
 
