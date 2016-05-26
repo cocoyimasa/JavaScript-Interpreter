@@ -43,3 +43,4 @@ When you input a statement,please press more Enter-Key after that.
 
 * 100+100;
 
+@copyright  all rights preserved. No one will use the code before I agree.
