@@ -106,7 +106,6 @@ calculate a expression -- 1+1,you should write 1+1;; ,then click enter key，the
 
 # <p id='china'>JSInterpreter中文版README</p>
 
-=====================
 
 ### <a href= "#english" style="border: 1px solid red ">English Version</a> (English Version Link)
 
