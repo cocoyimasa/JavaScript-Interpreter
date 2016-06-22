@@ -127,12 +127,14 @@ calculate a expression -- 1+1,you should write 1+1;; ,then click enter key，the
 ##使用方法：
 
 * 解释-打印循环的使用：
-  * ```
+  * 
+  ```
 	InitEnv().GetJavaScriptConsole((code, env) => code.Parse().evaluate(env)); 
   ```
   在主函数中调用这一句。
 * 不使用Repl，执行一些代码片段：
-  * ```
+  * 
+  ```
      InitEnv().Run([string]codeFragment);
   ```
 * 使用repl的时候，写完一句代码，记得在后边加两个分号，分号+回车键是代表输入结束的标志。之后解释器会开始运行。千万不要忘记两个分号。
