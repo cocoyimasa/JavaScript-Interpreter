@@ -1,0 +1,6 @@
+D:\Program Files\Project\JSInterpret\Playground\bin\Debug\Playground.exe.config
+D:\Program Files\Project\JSInterpret\Playground\bin\Debug\Playground.exe
+D:\Program Files\Project\JSInterpret\Playground\bin\Debug\Playground.pdb
+D:\Program Files\Project\JSInterpret\Playground\obj\Debug\Playground.csprojResolveAssemblyReference.cache
+D:\Program Files\Project\JSInterpret\Playground\obj\Debug\Playground.exe
+D:\Program Files\Project\JSInterpret\Playground\obj\Debug\Playground.pdb

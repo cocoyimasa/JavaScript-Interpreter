@@ -1,0 +1,7 @@
+D:\Program Files\Project\JSInterpret\JsInterpreterUnitTest\bin\Debug\JsInterpreterUnitTest.dll
+D:\Program Files\Project\JSInterpret\JsInterpreterUnitTest\bin\Debug\JsInterpreterUnitTest.pdb
+D:\Program Files\Project\JSInterpret\JsInterpreterUnitTest\bin\Debug\JSInterpret.exe
+D:\Program Files\Project\JSInterpret\JsInterpreterUnitTest\bin\Debug\JSInterpret.pdb
+D:\Program Files\Project\JSInterpret\JsInterpreterUnitTest\obj\Debug\JsInterpreterUnitTest.csprojResolveAssemblyReference.cache
+D:\Program Files\Project\JSInterpret\JsInterpreterUnitTest\obj\Debug\JsInterpreterUnitTest.dll
+D:\Program Files\Project\JSInterpret\JsInterpreterUnitTest\obj\Debug\JsInterpreterUnitTest.pdb
