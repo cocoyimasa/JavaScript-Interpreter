@@ -5,7 +5,9 @@ JSInterpreter
 ![build](https://img.shields.io/wercker/ci/wercker/docs.svg)
 ![license](https://img.shields.io/aur/license/yaourt.svg)
 
-* <a href= "#china" style="border: 1px solid red ">中文版</a> (中文版链接)
+### <a href= "#china" style="border: 1px solid red ">中文版</a> (中文版链接)
+
+### <p id='english'>English Version</p>
 
 My JavaScript Interpreter is written all by hand.
 Surely I read some sources that written by others.
@@ -103,6 +105,10 @@ calculate a expression -- 1+1,you should write 1+1;; ,then click enter key，the
 @copyright  all rights preserved. 
 
 # <p id='china'>JSInterpreter中文版README</p>
+
+=====================
+
+### <a href= "#english" style="border: 1px solid red ">English Version</a> (English Version Link)
 
 这是一个纯手写代码的JavaScript解释器。参考过一些别人的代码，从中学到了一些想法并添加到了自己的代码中。这个解释器并不完整，有很多纰漏和不足，不支持的东西很多，而且难免有不少bug，我并没有进行严格的测试。
 
