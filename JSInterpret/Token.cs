@@ -27,6 +27,7 @@ namespace JSInterpret
         OpenParenthese/*(*/, CloseParenthese,
         ADD, SUB, MUL, DIV, COLON, EQ/*==*/, BIND/*=*/, SemiColon/*;*/, COMMA/*;*/,
         GT, LT, GE, LE, AND, OR, UNEQ, NOT,
+        BIT_AND,BIT_OR,PLUS_PLUS,SUB_SUB,
         POINT,/*.*/
         FOR, WHILE, FUNCTION,
         IF, ELSE, VAR, RETURN, NEW, IN, THIS,

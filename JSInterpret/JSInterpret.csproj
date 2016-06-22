@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="Env.cs" />
     <Compile Include="JavaScript.cs" />
+    <Compile Include="JavaScriptTokenizer.cs" />
+    <Compile Include="JsExpression.cs" />
     <Compile Include="JsObject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

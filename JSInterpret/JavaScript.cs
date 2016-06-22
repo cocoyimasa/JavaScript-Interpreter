@@ -11,297 +11,30 @@ using System.Threading.Tasks;
  ***/
 namespace JSInterpret
 {
-    enum State
-    {
-        START, END, NUM, STRING, BOOLEAN, IDENTIFY
-    }
+    
     public static partial class JavaScript
     {
-        //built-in Objects
-        //basic: Number Boolean 
-        //Object Function Array(BasicArray,DictArray) String 
-        //Math 
-        //object {} 
-        //. 属性和方法调用
+        //built-in Objects                          √
+        //basic: Number Boolean                     √
+        //Object Function Array(BasicArray) String  √
+        //bool expression                           √
+        //. 属性和方法调用                             √
+        //重构JsExpression.eval                      √
+        //for / for..in
+        //do..while
+        //Array(DictArray) [] {'1':2,'3':3} 直接创建Array
+        //object {} 对象字面量{a:10,b:function(){}}
+        //支持解释多行语句
+        //Math
         //proto
-        public static Dictionary<string, TokenType> keyword = new Dictionary<string, TokenType>();
-        public static string[] keywords = { 
-                                              "for", "while", "function", 
-                                              "if", "else", "var","return","new","in","this",
-                                              "instanceof","typeof","undefined","break",
-                                              "import","class","let","const","switch",
-                                              "default","continue"
-                                              /* "try","catch","throw","public","private","with" */
-                                              /* "static","native","extends","enum","abstract" */
-                                          };
-        public static TokenType[] tokenType = { 
-                                        TokenType.FOR, TokenType.WHILE, 
-                                        TokenType.FUNCTION, TokenType.IF, 
-                                        TokenType.ELSE, TokenType.VAR ,
-                                        TokenType.RETURN,TokenType.NEW,
-                                        TokenType.IN,TokenType.THIS,
-                                        TokenType.INSTANCEOF,TokenType.TYPEOF,
-                                        TokenType.UNDEFINED,TokenType.BREAK,
-                                        TokenType.IMPORT,TokenType.CLASS,
-                                        TokenType.LET,TokenType.CONST,
-                                        TokenType.SWITCH,TokenType.DEFAULT,
-                                        TokenType.CONTINUE
-                                              };
+        //es6新特性支持
+        //String Array Function Library
+        
         public static void OrThrows(this Boolean condition, String message = null)
         {
             if (!condition) { exceptions.Add(new Exception(message == null ? "nothing" : message)); }
         }
-        public static string Join(this string sep, IEnumerable<Object> tokens)
-        {
-            return string.Join(sep, tokens);
-        }
-        public static string PrettyPrint(string[] tokens)
-        {
-            return "[" + ", ".Join(tokens.Select(s => "'" + s + "'")) + "]";
-        }
-        public static bool isKeyword(string identify)
-        {
-            foreach (var item in keywords)
-            {
-                if (identify.Equals(item))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-        public static bool isDelim(char ch)
-        {
-            char[] cDelims = { ',', '(', ')', '[', ']', ';', ':', '=', '<', '>', '+', '-', '*', '/', '&', '{', '}' };
-            foreach (var item in cDelims)
-            {
-                if (ch == item)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-        public static List<Token> Tokenizer(string code)
-        {
-            List<Token> tokenList = new List<Token>();
-            int count = 0;
-            StringBuilder sb = new StringBuilder();
-            State state = State.START;
-            while (count < code.Length)
-            {
-                bool isLexeme = false;
-                TokenType currentType = 0;
-                switch (state)
-                {
-                    case State.START:
-                        if (Char.IsWhiteSpace(code[count]))
-                        {
-                            count++;
-                            continue;
-                        }
-                        else if (Char.IsLetter(code[count]) || code[count] == '_')
-                        {
-                            state = State.IDENTIFY;
-                            continue;
-                        }
-                        else if (Char.IsDigit(code[count]))
-                        {
-                            state = State.NUM;
-                            continue;
-                        }
-                        else if (code[count] == '\'' || code[count] == '"')
-                        {
-                            state = State.STRING;
-                            //count++;
-                            continue;
-                        }
-                        else
-                        {
-                            switch ((code[count]))
-                            {
-                                case '.':
-                                    currentType = TokenType.POINT;
-                                    break;
-                                case '+':
-                                    currentType = TokenType.ADD;
-                                    break;
-                                case '-':
-                                    currentType = TokenType.SUB;
-                                    break;
-                                case '*':
-                                    currentType = TokenType.MUL;
-                                    break;
-                                case '/':
-                                    currentType = TokenType.DIV;
-                                    break;
-                                case '{':
-                                    currentType = TokenType.OpenBrace;
-                                    break;
-                                case '}':
-                                    currentType = TokenType.CloseBrace;
-                                    break;
-                                case '[':
-                                    currentType = TokenType.OpenBracket;
-                                    break;
-                                case ']':
-                                    currentType = TokenType.CloseBracket;
-                                    break;
-                                case '(':
-                                    currentType = TokenType.OpenParenthese;
-                                    break;
-                                case ')':
-                                    currentType = TokenType.CloseParenthese;
-                                    break;
-                                case ':':
-                                    currentType = TokenType.COLON;
-                                    break;
-                                case ';':
-                                    currentType = TokenType.SemiColon;
-                                    break;
-                                case '=':
-                                    if (code[count + 1] != '=')
-                                        currentType = TokenType.BIND;
-                                    else
-                                    {
-                                        count++;
-                                        sb.Append(code[count]);
-                                        currentType = TokenType.EQ;
-                                    }
-                                    break;
-                                case '>':
-                                    if (code[count + 1] != '=')
-                                        currentType = TokenType.GE;
-                                    else
-                                    {
-                                        count++;
-                                        sb.Append(code[count]);
-                                        currentType = TokenType.GT;
-                                    }
-                                    break;
-                                case '<':
-                                    if (code[count + 1] != '=')
-                                        currentType = TokenType.LE;
-                                    else
-                                    {
-                                        count++;
-                                        sb.Append(code[count]);
-                                        currentType = TokenType.LT;
-                                    }
-                                    break;
-                                case '&':
-                                    if (code[count + 1] != '&')
-                                        currentType = TokenType.AND;
-                                    else
-                                    {
-                                        count++;
-                                        sb.Append(code[count]);
-                                        currentType = TokenType.AND;
-                                    }
-                                    break;
-                                case '!':
-                                    if (code[count + 1] != '=')
-                                        currentType = TokenType.UNEQ;
-                                    else
-                                    {
-                                        count++;
-                                        sb.Append(code[count]);
-                                        currentType = TokenType.NOT;
-                                    }
-                                    break;
-                                case '|':
-                                    if (code[count + 1] != '|')
-                                        currentType = TokenType.OR;
-                                    else
-                                    {
-                                        count++;
-                                        sb.Append(code[count]);
-                                        currentType = TokenType.OR;
-                                    }
-                                    break;
-                                case ',':
-                                    currentType = TokenType.COMMA;
-                                    break;
-                            }
-                            isLexeme = true;
-                        }
-                        sb.Append(code[count]);
-                        count++;
-                        break;
-                    case State.NUM:
-                        if (Char.IsDigit(code[count]))
-                        {
-                            sb.Append(code[count]);
-                            state = State.NUM;
-                            count++;
-                        }
-                        else if (isDelim(code[count]) || Char.IsWhiteSpace(code[count]))
-                        {
-                            isLexeme = true;
-                        }
-                        break;
-                    case State.IDENTIFY:
-                        if (Char.IsLetterOrDigit(code[count]) || code[count] == '_')
-                        {
-                            sb.Append(code[count]);
-                            state = State.IDENTIFY;
-                            count++;
-                        }
-                        else if (isDelim(code[count]) || code[count] == '.' || Char.IsWhiteSpace(code[count]))
-                        {
-                            isLexeme = true;
-                        }
-                        break;
-                    case State.STRING:
-                        if (code[count] == '\'')
-                        {
-                            //stay this state
-                            sb.Append(code[count++]);
-                            state = State.STRING;
-                        }
-                        while (code[count] != '\'')
-                        {
-                            sb.Append(code[count++]);
-                        }
-                        if (code[count] == '\'')
-                        {
-                            isLexeme = true;
-                            count++;
-                        }
-                        break;
-                }
-                if (isLexeme)
-                {
-                    switch (state)
-                    {
-                        case State.START:
-                            break;
-                        case State.END:
-                            break;
-                        case State.NUM:
-                            currentType = TokenType.NUMBER;
-                            break;
-                        case State.STRING:
-                            currentType = TokenType.STRING;
-                            break;
-                        case State.IDENTIFY:
-                            if (isKeyword(sb.ToString()))
-                            {
-                                currentType = getTokenType(sb.ToString());
-                            }
-                            else
-                                currentType = TokenType.IDENTIFY;
-                            break;
-                        default:
-                            break;
-                    }
-                    tokenList.Add(new Token(currentType, sb.ToString()));
-                    sb.Clear();
-                    state = State.START;
-                }
-            }
-            return tokenList;
-        }
+        
         public static int index = 0;
         public static JsExpression current = null;
         public static List<Exception> exceptions = new List<Exception>();
@@ -483,21 +216,130 @@ namespace JSInterpret
             JsExpression retExp = new JsExpression("return", current);
             current = retExp;
             index++; // match exp
-            retExp.child.Add(ParseRelation(list));
+            retExp.child.Add(GetSingleOrMathExpressionItem(list));
             index++; // match ;
             (list[index].type == TokenType.SemiColon).OrThrows("expected a semicolon");
             current = retExp.parent;
             return retExp;
         }
-        //bug
+        // bool expression parse
         public static JsExpression ParseBool(List<Token> list)
         {
-            JsExpression result = ParseRelation(list);
+            return ParseOrExpression(list);
+        }
+
+        // Exp = T || Exp | null --> T [ || T]*
+        public static JsExpression ParseOrExpression(List<Token> list)
+        {
+            JsExpression result = ParseAndExpression(list);
             index++;
+            JsExpression tmp = null;
+            while (list[index].type == TokenType.OR)
+            {
+                tmp = new JsExpression(list[index].name, current);
+                current = tmp;
+                index++;
+                JsExpression e2 = ParseAndExpression(list);
+                result.parent = tmp;
+                tmp.child.Add(result);
+                tmp.child.Add(e2);
+                result = tmp;
+                current = result;
+                index++;
+            }
+            index--;
+            current = result.parent;
+            return result;
+        }
+        // T = F && T | null --> F [&& F]*
+        public static JsExpression ParseAndExpression(List<Token> list)
+        {
+            JsExpression result = ParseCompareExpression(list);
+            index++;
+            JsExpression tmp = null;
+            while (list[index].type == TokenType.AND)
+            {
+                tmp = new JsExpression(list[index].name, current);
+                current = tmp;
+                index++;
+                JsExpression e2 = ParseCompareExpression(list);
+                result.parent = tmp;
+                tmp.child.Add(result);
+                tmp.child.Add(e2);
+                result = tmp;
+                current = result;
+                index++;
+            }
+            index--;
+            current = result.parent;
+            return result;
+        }
+        // F = （num | id） [> < ...] | ( Exp )
+        public static JsExpression ParseCompareExpression(List<Token> list)
+        {
+            if(list[index].type == TokenType.NUMBER || 
+                list[index].type == TokenType.IDENTIFY   ||
+                list[index].name == "true"               ||
+                list[index].name == "false"
+                )
+            {
+                return ParseBinaryBoolExpression(list);
+            }
+            else if (list[index].type == TokenType.NOT)
+            {
+                return ParseUnaryBoolExpression(list);
+            }
+            else if (list[index].type == TokenType.OpenParenthese)
+            {
+                index++;
+                JsExpression exp = ParseOrExpression(list);
+                index++;//match )
+                return exp;
+            }
+            return null;
+        }
+        public static JsExpression GetSingleOrBoolExpressionItem(List<Token> list)
+        {
+            JsExpression result = null;
+            if (isMathOperation(list[index + 1]))
+            {
+                return ParseBool(list);
+            }
+            else if (list[index].name == "true" ||
+                list[index].name == "false" ||
+                list[index].type == TokenType.IDENTIFY ||
+                list[index].type == TokenType.NUMBER)// Number or Math Exp
+            {
+                return new JsExpression(list[index].name, current);
+            }
+            return result;
+        }
+        public static JsExpression GetSingleOrMathExpressionItem(List<Token> list)
+        {
+            JsExpression result = null;
+            if (isMathOperation(list[index + 1]))
+            {
+                return ParseRelation(list);
+            }
+            else if (list[index].name == "true" ||
+                list[index].name == "false"||
+                list[index].type == TokenType.IDENTIFY ||
+                list[index].type == TokenType.NUMBER)// Number or Math Exp
+            {
+                return new JsExpression(list[index].name, current);
+            }
+            return result;
+        }
+
+        // > < >= <= == !=
+        // 1+1 < 2+2
+        public static JsExpression ParseBinaryBoolExpression(List<Token> list)
+        {
+            JsExpression result = GetSingleOrMathExpressionItem(list);
+            index++;// match op
             TokenType[] relArray ={
                          TokenType.EQ,TokenType.GT,TokenType.LT,TokenType.GE,
-                         TokenType.LE,TokenType.AND,TokenType.OR,TokenType.UNEQ,
-                         TokenType.NOT
+                         TokenType.LE,TokenType.UNEQ
                          };
             Func<TokenType, bool> inRelArray = (op) =>
             {
@@ -515,12 +357,45 @@ namespace JSInterpret
                 JsExpression tmp = new JsExpression(list[index].name, current);
                 current = tmp;
                 index++;
-                JsExpression e1 = ParseRelation(list);
+                JsExpression e1 = GetSingleOrMathExpressionItem(list);
                 result.parent = tmp;
                 tmp.child.Add(result);
                 tmp.child.Add(e1);
                 result = tmp;
             }
+            else {
+                index--;
+            }
+            current = result.parent;
+            return result;
+        }
+        //!identifier 
+        //!(Exp)
+        public static JsExpression ParseUnaryBoolExpression(List<Token> list)
+        {
+            JsExpression result = new JsExpression(list[index].name, current);
+            current = result;
+            index++;// match next
+            if (list[index].type == TokenType.NUMBER ||
+                list[index].type == TokenType.IDENTIFY ||
+                list[index].name == "true" ||
+                list[index].name == "false"
+                )// match !
+            {
+
+                JsExpression exp = new JsExpression(list[index].name, current);
+                result.child.Add(exp);
+                return result;
+            }
+            else if (list[index].type == TokenType.OpenParenthese)// match !(Exp)
+            {
+                index++;
+                JsExpression exp = ParseOrExpression(list);
+                result.child.Add(exp);
+                index++;//match )
+                return exp;
+            }
+            current = result.parent;
             return result;
         }
         //Exp=Term[(+|-)Term]*
@@ -600,7 +475,7 @@ namespace JSInterpret
             {
 
                 case TokenType.NUMBER:
-                    assignExp.child.Add(ParseRelation(list));
+                    assignExp.child.Add(GetSingleOrMathExpressionItem(list));
                     break;
                 case TokenType.IDENTIFY://var|function call|a.b|bool
                     switch (list[index + 1].type)
@@ -608,14 +483,27 @@ namespace JSInterpret
                         case TokenType.OpenParenthese://function call
                             assignExp.child.Add(ParseFunctionCall(list));
                             break;
-                        case TokenType.SemiColon://math
-                            assignExp.child.Add(ParseRelation(list));
+                        case TokenType.SemiColon://num or var
+                            assignExp.child.Add(new JsExpression(list[index].name,current));
                             break;
-                        case TokenType.POINT:
+                        case TokenType.POINT: //PointExp
                             assignExp.child.Add(ParsePointExpression(list));
                             break;
-                        default://var
+                        case TokenType.ADD:// Math Exp
+                        case TokenType.SUB:
+                        case TokenType.MUL:
+                        case TokenType.DIV:
                             assignExp.child.Add(ParseRelation(list));
+                            break;
+                        case TokenType.AND:
+                        case TokenType.OR:
+                        case TokenType.EQ:
+                        case TokenType.UNEQ:
+                        case TokenType.LT:
+                        case TokenType.GE:
+                        case TokenType.LE:
+                        case TokenType.GT://Bool Exp
+                            assignExp.child.Add(ParseBool(list));
                             break;
                     }
                     break;
@@ -743,6 +631,36 @@ namespace JSInterpret
         {
             return list[currentIndex + step].type == type;
         }
+        public static bool isBoolOperation(Token token)
+        {
+            switch (token.type)
+            {
+                case TokenType.EQ:
+                case TokenType.UNEQ:
+                case TokenType.LT:
+                case TokenType.GE:
+                case TokenType.LE:
+                case TokenType.GT:
+                case TokenType.AND:
+                case TokenType.OR:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        public static bool isMathOperation(Token token)
+        {
+            switch (token.type)
+            {
+                case TokenType.ADD:
+                case TokenType.SUB:
+                case TokenType.MUL:
+                case TokenType.DIV:
+                    return true;
+                default:
+                    return false;
+            }
+        }
         //var function functionCall ({function})() a=b
         public static JsExpression ParseProgram(List<Token> list)
         {
@@ -794,6 +712,17 @@ namespace JSInterpret
                                     }
                                 }
                                 break;
+                            case TokenType.EQ:
+                            case TokenType.UNEQ:
+                            case TokenType.LT:
+                            case TokenType.GE:
+                            case TokenType.LE:
+                            case TokenType.GT:
+                            case TokenType.AND:
+                            case TokenType.OR:
+                                current = ParseBool(list);
+                                index++;//match ;
+                                break;
                             default:
                                 //func call
                                 current = ParseFunctionCall(list);
@@ -802,8 +731,19 @@ namespace JSInterpret
                         }
                         program.child.Add(current);
                         break;
-                    case TokenType.NUMBER:
-                        current = ParseRelation(list);
+                    case TokenType.NUMBER: // num | Math Exp | Bool Exp 
+                        if (isMathOperation(list[index + 1]))
+                        {
+                            current = ParseRelation(list);
+                        }
+                        else if (isBoolOperation(list[index + 1]))
+                        {
+                            current = ParseBool(list);
+                        }
+                        else
+                        {
+                            current = new JsExpression(list[index].name, program);
+                        }
                         index++;//match ;
                         program.child.Add(current);
                         break;

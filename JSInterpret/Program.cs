@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 /*
  *@author wanghesai
  *@time 2014/11/13-2014/11/15 
- *@time 2016/6/21 fix bugs and add library
+ *@time 2016/6/21 fix bugs and add libraries
+ *@time 2016/6/22 fix bugs and add bool expressions supporting
  *@name JSInterpret
  ***/
 namespace JSInterpret
@@ -17,7 +18,7 @@ namespace JSInterpret
         public static JsExpression Parse(this string code)
         {
             List<Token> tokenList = Tokenizer(code);
-            Debug.WriteLine(
+            Console.WriteLine(
                 tokenList.Select(item => item.name)
                 .Aggregate("", (res, str) => res + " " + str).Substring(1)
                 );
@@ -70,13 +71,31 @@ namespace JSInterpret
             }
         }
 
-        public static JsBool BoolEval(this JsExpression[] args, Env env, Func<JsNumber, JsNumber, bool> rel)
+        public static JsBool NumEval(this JsExpression[] args, Env env, Func<JsNumber, JsNumber, bool> rel)
         {
             (args.Length > 1).OrThrows("arguments are too less in relation expressions");
             JsNumber curr = (JsNumber)args[0].evaluate(env);
             foreach (var item in args.Skip(1))
             {
                 JsNumber next = (JsNumber)item.evaluate(env);
+                if (rel(curr, next))
+                {
+                    curr = next;
+                }
+                else
+                {
+                    return JsBool.False;
+                }
+            }
+            return JsBool.True;
+        }
+        public static JsBool BoolEval(this JsExpression[] args, Env env, Func<JsBool, JsBool, bool> rel)
+        {
+            (args.Length > 1).OrThrows("arguments are too less in relation expressions");
+            JsBool curr = (JsBool)args[0].evaluate(env);
+            foreach (var item in args.Skip(1))
+            {
+                JsBool next = (JsBool)item.evaluate(env);
                 if (rel(curr, next))
                 {
                     curr = next;
@@ -144,27 +163,35 @@ namespace JSInterpret
                 })
                 .Builtin("==", (args, scope) =>
                 {
-                    return args.BoolEval(scope, (s1, s2) => s1 == s2);
+                    return args.NumEval(scope, (s1, s2) => s1 == s2);
                 })
                 .Builtin(">", (args, scope) =>
                 {
-                    return args.BoolEval(scope, (s1, s2) => s1 > s2);
+                    return args.NumEval(scope, (s1, s2) => s1 > s2);
                 })
                 .Builtin("<", (args, scope) =>
                 {
-                    return args.BoolEval(scope, (s1, s2) => s1 < s2);
+                    return args.NumEval(scope, (s1, s2) => s1 < s2);
                 })
                 .Builtin(">=", (args, scope) =>
                 {
-                    return args.BoolEval(scope, (s1, s2) => s1 >= s2);
+                    return args.NumEval(scope, (s1, s2) => s1 >= s2);
                 })
                 .Builtin("<=", (args, scope) =>
                 {
-                    return args.BoolEval(scope, (s1, s2) => s1 <= s2);
+                    return args.NumEval(scope, (s1, s2) => s1 <= s2);
                 })
                 .Builtin("!=", (args, scope) =>
                 {
-                    return args.BoolEval(scope, (s1, s2) => s1 != s2);
+                    return args.NumEval(scope, (s1, s2) => s1 != s2);
+                })
+                .Builtin("&&", (args, scope) =>
+                {
+                    return args.BoolEval(scope, (s1, s2) => s1 && s2);
+                })
+                .Builtin("||", (args, scope) => 
+                {
+                    return args.BoolEval(scope, (s1, s2) => s1 || s2);
                 })
                 .Builtin("Object", (args, scope) =>
                 {
@@ -200,9 +227,7 @@ namespace JSInterpret
             //InitEnv().GetJavaScriptConsole((code, env) => code.Parse().evaluate(env));
             //Run code fragment:
             string[] code = {
-                "var a=new Object();\n" ,
-                "a.b=1;\n" ,
-                "a.b;"
+                "true && false;"
                 };
             Console.ForegroundColor = ConsoleColor.White;
             Env env = JSInterpret.JavaScript.InitEnv();
