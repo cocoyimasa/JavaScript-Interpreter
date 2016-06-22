@@ -102,7 +102,7 @@ calculate a expression -- 1+1,you should write 1+1;; ,then click enter key，the
 
 @copyright  all rights preserved. 
 
-# <p id='china'>JavaScript中文版README</p>
+# <p id='china'>JSInterpreter中文版README</p>
 
 这是一个纯手写代码的JavaScript解释器。参考过一些别人的代码，从中学到了一些想法并添加到了自己的代码中。这个解释器并不完整，有很多纰漏和不足，不支持的东西很多，而且难免有不少bug，我并没有进行严格的测试。
 
