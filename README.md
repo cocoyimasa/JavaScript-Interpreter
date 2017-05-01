@@ -189,10 +189,9 @@ calculate a expression -- 1+1,you should write 1+1;; ,then click enter key，the
 * 1+2;
 
 * 100+100;
+-----------------------------------------------------
 
-======
-
-###JavaScript解释器开源项目重启
+### JavaScript解释器开源项目重启
 
 我依然会失败，只是从此以后，我不会再怀疑自己。----2017.5.1
 
