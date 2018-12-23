@@ -7,12 +7,13 @@ JSInterpreter
 
 * <a href= "#china" style="border: 1px solid red ">中文版</a> (中文版链接)
 
-My JavaScript Interpreter is written all by hand.
-Surely I read some sources that written by others.
-I have learned many ideas and used them in my code.
-It is not completed and has many shortages.Many Bugs still can be found in this program.I have not test it strictly.
+The JavaScript Interpreter is written all by myself.
+Surely I read some source code that written by others, in books or websites.
+I learned many ideas and knowledge.
+It is not good enough and has many shortages, because of lacking of time and some other things.
+Many Bugs still can be found and it is not tested strictly. Generally speaking, it is a experimental project for me to test theories which learned from compilers principles.
 
-Now it supports only the core features in JavaScript.
+Now only the core features in JavaScript are sopported because of lacking of time, energy, instead of unknow how to do and what to do. Some day I will be back to modify and improve the code, but not now.
 
 ## The features it supports as fellows:
 
@@ -47,9 +48,9 @@ In the future,it will support some library functions.
   ```
   in Main().
   
-- When running in repl mode, all two semi-colon before running.(";;")
-Two semi-colon and a Enter key are signals for interpreter to run the code you write.
-Don't forget these.
+- While running in the repl mode, remember to add two semi-colon before running.(";;")
+Two semi-colon and an Enter key are signals for interpreter to run the code that you have written.
+Just don't forget this.
   - For example,
 calculate a expression -- 1+1,you should write 1+1;; ,then click enter key，the interpreter shows the result --2.
 
@@ -66,11 +67,11 @@ calculate a expression -- 1+1,you should write 1+1;; ,then click enter key，the
 
      - --1
 
-- If not use the repl ,just test some code,no need to add two ';' after your code.Just add one ';' is all right.
+- If not running in the repl and just to test some code, there's no need to add two ';' after your code. Just adding one ';' is fine.
 
 
 
-## Some cases for you to test my interpreter:
+## Some cases for you to test the interpreter:
 
 * function add(a){a=a+1;return a;}
 
@@ -104,9 +105,9 @@ calculate a expression -- 1+1,you should write 1+1;; ,then click enter key，the
 
 # <p id='china'>JSInterpreter中文版README</p>
 
-这是一个纯手写代码的JavaScript解释器。参考过一些别人的代码，从中学到了一些想法并添加到了自己的代码中。这个解释器并不完整，有很多纰漏和不足，不支持的东西很多，而且难免有不少bug，我并没有进行严格的测试。
+这是一个纯手写代码的JavaScript解释器。参考过一些别人的代码，从中学到了一些想法并添加到了自己的代码中。这个解释器并不完整，有很多纰漏和不足，不支持的东西很多，而且难免有不少bug，我并没有进行严格的测试。我是为了验证自己对于编译原理的理解做的这个东西，验证了我的设想即停止，并不奢望达到工业级的应用水平，所以bug我自己是可以绕过的，所以于我来说，已经算是圆满完成。
 
-现在仅支持JavaScript的核心部分的某些东西，只是一个架子。略显空洞啊。
+现在仅支持JavaScript的核心部分的某些东西，只是一个架子。之所以没有做到心中尽善尽美是因为缺少时间和精力，而不是没有完成的能力（这种代码写到最后基本是添砖加瓦，因为框架已成，搬砖的累活做与不做，对于我本人，并无所谓得失）。毕竟我也只是一个人，我也要生活，也要吃饭，而不是完全沉浸于这样一个虚拟世界，那样不会增加任何其他的东西。或许有一天我会回来修改它，提高它，但是不是现在。毕竟时光匆匆，流年似水，只能说也许，无法说承诺。
 
 ## 现在支持的主要特性：
 * 基本数学运算，加减乘数+-*/，逻辑表达式 true false && ||  > < == != >= <=
