@@ -12,7 +12,7 @@ JavaScript Interpreter
 My JavaScript Interpreter is written all by hand.
 Surely I read some sources that written by others.
 I have learned many ideas and used them in my code.
-It is not completed and has many shortages.Many Bugs still can be found in this program.I have not test it strictly.
+It is not completed and has many shortages. Many Bugs still can be found in this program.I have not tested it strictly.
 
 Now it supports only the core features in JavaScript.
 
