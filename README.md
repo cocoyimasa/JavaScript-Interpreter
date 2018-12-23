@@ -9,12 +9,12 @@ JavaScript Interpreter
 
 ### <p id='english'>English Version</p>
 
-My JavaScript Interpreter is written all by hand.
-Surely I read some sources that written by others.
-I have learned many ideas and used them in my code.
-It is not completed and has many shortages. Many Bugs still can be found in this program.I have not tested it strictly.
+The JavaScript Interpreter is written all by myself.
+Surely I read some source code that written by others, in books and websites.
+I have learned many ideas and knowledge.
+It is not good enough and has many shortages. Many Bugs still can be found. It is not tested strictly.
 
-Now it supports only the core features in JavaScript.
+Now only the core features in JavaScript are supported.
 
 ## The features it supports as fellows:
 
@@ -49,9 +49,9 @@ In the future,it will support some library functions.
   ```
   in Main().
   
-- When running in repl mode, all two semi-colon before running.(";;")
-Two semi-colon and a Enter key are signals for interpreter to run the code you write.
-Don't forget these.
+- While running in the repl mode, add two semi-colons before running.(";;")
+Two semi-colons and an Enter key are signals for the interpreter to run the code that you have written.
+Just don't forget this.
   - For example,
 calculate a expression -- 1+1,you should write 1+1;; ,then click enter key，the interpreter shows the result --2.
 
@@ -111,7 +111,7 @@ calculate a expression -- 1+1,you should write 1+1;; ,then click enter key，the
 
 这是一个纯手写代码的JavaScript解释器。参考过一些别人的代码，从中学到了一些想法并添加到了自己的代码中。这个解释器并不完整，有很多纰漏和不足，不支持的东西很多，而且难免有不少bug，我并没有进行严格的测试。
 
-现在仅支持JavaScript的核心部分的某些东西，只是一个架子。略显空洞啊。
+现在仅支持JavaScript的核心部分的某些东西，只是一个架子。但是写这个解释器的初衷是验证自己在编译原理的所学，验证完成即停止，对我来说已经是圆满。我并不在乎实用性。毕竟限于时间和精力，不可能在一个只剩下添砖加瓦的项目上继续做重复的事情，还有很多其他事情等着我去做。作为一个人，也是要吃饭的。
 
 ## 现在支持的主要特性：
 * 基本数学运算，加减乘数+-*/，逻辑表达式 true false && ||  > < == != >= <=
