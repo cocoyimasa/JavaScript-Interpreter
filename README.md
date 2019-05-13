@@ -205,4 +205,4 @@ calculate a expression -- 1+1,you should write 1+1;; ,then click enter key，the
 
 我在JS解释器上能够投入的时间应该不会有很多了，但是我依然决定以今年年底为限，以上的承诺要兑现。珍惜自己的碎片化时间，为开源贡献自己的代码。就这样。
 
-@copyright  保留一切权利。
+@copyright  Apache License 2.0 作者保留一切解释权利
